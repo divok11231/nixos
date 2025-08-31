@@ -1,6 +1,8 @@
 { ... }:
 
-# Touchscreen gestures, driving the squeekboard on-screen keyboard.
+# Touchscreen gestures: squeekboard on-screen keyboard, and three-finger
+# sideways swipes between workspaces (content follows the fingers), and a
+# swipe down from the top edge for the app launcher.
 {
   flake.modules.homeManager.gestures =
     { pkgs, config, ... }:
@@ -29,7 +31,10 @@
               -d /dev/input/ipts-touchscreen \
               -m 1500 -t 100 \
               -g "1,DU,B,*,R,${bin}/osk-show" \
-              -g "2,UD,*,*,R,${bin}/osk-hide"
+              -g "2,UD,*,*,R,${bin}/osk-hide" \
+              -g "3,RL,*,*,R,${bin}/mmsg dispatch viewtoright" \
+              -g "3,LR,*,*,R,${bin}/mmsg dispatch viewtoleft" \
+              -g "1,UD,T,*,R,${pkgs.quickshell}/bin/qs ipc call launcher toggle"
           '';
           Restart = "on-failure";
           RestartSec = "2s";

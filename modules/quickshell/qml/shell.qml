@@ -26,13 +26,20 @@ ShellRoot {
     }
 
     // ─── Suspend ───
+    // QS_IDLE_SCREEN_OFF names an output to power off instead of suspending,
+    // for hosts that never come back from suspend; any input wakes it.
     IdleMonitor {
         id: suspendMonitor
         timeout: 900
         enabled: !SystemTogglesState.caffeineOn
 
+        readonly property string screenOffOutput: Quickshell.env("QS_IDLE_SCREEN_OFF") ?? ""
+
         onIsIdleChanged: {
-            if (isIdle) {
+            if (screenOffOutput !== "") {
+                Quickshell.execDetached(["mmsg", "dispatch",
+                    (isIdle ? "sleep_monitor," : "wakeup_monitor,") + screenOffOutput])
+            } else if (isIdle) {
                 Quickshell.execDetached(["systemctl", "suspend"])
             }
         }

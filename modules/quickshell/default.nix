@@ -1,6 +1,5 @@
 { ... }:
 
-# The QML tree is deployed into the store, so ~/.config/quickshell is read-only.
 # Anything the service needs to write lives in ~/.local/state/quickshell.
 {
   flake.modules.nixos.quickshell = {
@@ -29,7 +28,7 @@
 
       systemd.user.services.quickshell = {
         Unit = {
-          Description = "Meloworld Quickshell";
+          Description = "Kovid's Bastardization of Meloworld's Quickshell";
           After = [ "graphical-session.target" ];
           PartOf = [ "graphical-session.target" ];
         };

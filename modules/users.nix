@@ -5,6 +5,10 @@
     users.users.kovid = {
       initialPassword = "kovid123";
       isNormalUser = true;
+      # ordovician's key, so the hosts can reach each other over tailscale.
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILKED9aeWNGLsGBz/n0JLMyY6DeUTdQTsApDuTgdMmoA kovid.l@hyderabad.bits-pilani.ac.in"
+      ];
       extraGroups = [
         "wheel"
         "networkmanager"

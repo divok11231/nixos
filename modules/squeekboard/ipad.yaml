@@ -2,6 +2,10 @@
 # Shift latches for a single capital; tap it again while capitalised to
 # lock caps. 123 / #+= switch to the number and symbol pages.
 ---
+# Rows are 575 units wide; 32 units of tray on each side narrows the keys
+# by 10% of the panel width (5% per side).
+margins: { top: 0, side: 32, bottom: 0 }
+
 outlines:
     default:       { width: 50,  height: 52 }
     backspace:     { width: 75,  height: 52 }

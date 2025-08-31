@@ -146,6 +146,11 @@
           "ALT,W,spawn,firefox"
           "ALT,Z,spawn,firefox --private-window"
 
+          # Hardware volume buttons; the Quickshell OSD follows the change.
+          "NONE,XF86AudioRaiseVolume,spawn,wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
+          "NONE,XF86AudioLowerVolume,spawn,wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+          "NONE,XF86AudioMute,spawn,wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+
           # Focus windows
           "ALT,J,focusstack,next"
           "ALT,K,focusstack,prev"
