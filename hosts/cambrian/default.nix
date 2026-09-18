@@ -23,26 +23,34 @@
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 
-
+  security.rtkit.enable = true;
   programs.uwsm.enable = true;
   programs.hyprland = {
     enable = true;
     withUWSM = true;
   };
-
+  services.tailscale.enable = true;
   programs.firefox.enable = true;
-
+  services.openssh.enable = true;
   imports = [
     ./hardware-configuration.nix
     ../../modules/packages.nix
     ../../modules/users.nix
+    ../../modules/docker.nix
     ../../modules/fonts.nix
     ../../modules/bluetooth.nix
     ../../modules/graphics.nix
     ../../modules/audio.nix
     ../../modules/lock.nix
     ../../modules/desktop.nix
+    ../../modules/networking/hosts.nix
+    ../../modules/opencode.nix
   ];
+networking.firewall = {
+  enable = true;
+  # Discord uses a wide range of UDP ports (usually 50000-65535) for WebRTC
+  allowedUDPPortRanges = [ { from = 50000; to = 65535; } ];
+};
 
 
   services.greetd = {
@@ -54,7 +62,6 @@
       };
     };
   };
-
   system.stateVersion = "26.05"; # Did you read the comment?
 
 }

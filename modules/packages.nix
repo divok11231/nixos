@@ -2,7 +2,8 @@
 
 {
   environment.systemPackages = with pkgs; [
-    
+   
+    tailscale
     wireguard-tools
     htop
     btop
@@ -13,16 +14,18 @@
     chromium
     # Desktop
     grim
+    vlc 
     slurp
     wl-clipboard
-
+    fastfetch
     # Editors
     vim
     neovim
+    obsidian
 
     # Dev
     gh
-    opencode
+    bun
     cmake
     ninja
     gnumake
@@ -32,16 +35,16 @@
     gcc
     nodejs
     python3
+    sshuttle
     clang
     hypridle
     hyprlock
+    lazygit
 
     # Download
     wget
     curl
 
-
-    
     tree
     killall
   ];

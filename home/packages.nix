@@ -2,6 +2,17 @@
 
 {
   home.packages = with pkgs; [
+    
+
+    # Music
+    reaper # Daw
+    pavucontrol # routing and control because I am losing with
+    qpwgraph # patchbay for pipewire
+    neural-amp-modeler-lv2 # because Im lazy and I want to just link things by path
+    alsa-utils
+    pipewire.jack
+    guitarix
+    
 
     kitty
     loupe

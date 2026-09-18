@@ -8,8 +8,9 @@
     ./dunst.nix
     ./hyprpaper.nix
     ./nvim.nix
+    ./nsys.nix
     # ./hyprland
-    # ./kitty.nix
+    ./kitty.nix
     # ./git.nix
     # ./fish.nix
   ];
