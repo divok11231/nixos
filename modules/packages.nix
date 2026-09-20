@@ -42,6 +42,8 @@
     lazygit
 
     # Download
+    nautilus
+    neural-amp-modeler-lv2
     wget
     curl
 
