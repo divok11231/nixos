@@ -31,7 +31,7 @@
     wofi
     hyprpanel
     steam
-    discord
+    # discord
     mpv
     hyprpaper
     unzip
