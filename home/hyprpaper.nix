@@ -4,12 +4,12 @@
     enable = true;
     settings = {
       preload = [
-        "/home/kovid/Pictures/Wallpapers/sushi-dark.png"
+        "/home/kovid/.config/hypr/sushi-dark.png"
       ];
       wallpaper = [
         {
           monitor = "";
-          path = "/home/kovid/Pictures/Wallpapers/sushi-dark.png";
+          path = "/home/kovid/.config/hypr/sushi-dark.png";
         }
       ];
     };

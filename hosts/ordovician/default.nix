@@ -17,13 +17,16 @@
   time.timeZone = "Asia/Kolkata";
   i18n.defaultLocale = "en_US.UTF-8";
   hardware.graphics= {
-enable = true;
-extraPackages = with pkgs; [intel-media-driver];
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [intel-media-driver];
 };
 hardware.enableRedistributableFirmware = true;
 hardware.sensor.iio.enable = true;
 zramSwap.enable = true;
-
+  programs.gamescope.enable = true;
+  programs.steam.gamescopeSession.enable = true;
+  services.seatd.enable = true;
   programs.xwayland.enable = true;
 
   security.rtkit.enable = true;
@@ -39,14 +42,14 @@ zramSwap.enable = true;
     ./hardware-configuration.nix
     ../../modules/packages.nix
     ../../modules/users.nix
-    # ../../modules/docker.nix
+     ../../modules/wvkbd.nix
     ../../modules/fonts.nix
     ../../modules/bluetooth.nix
     ../../modules/audio.nix
     ../../modules/lock.nix
     ../../modules/desktop.nix
     ../../modules/networking/hosts.nix
-    # ../../modules/opencode.nix
+    ../../modules/opencode.nix
   ];
 networking.firewall = {
   enable = true;

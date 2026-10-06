@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixos-hardware = {
+  url = "github:NixOS/nixos-hardware";
+  inputs.nixpkgs.follows = "nixpkgs";
+};
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
@@ -10,7 +14,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, ... }:
   let
     system = "x86_64-linux";
     pkgs-unstable =
@@ -69,6 +73,7 @@
 
       modules = [
         ./hosts/ordovician/default.nix
+        nixos-hardware.nixosModules.microsoft-surface-pro-intel
         home-manager.nixosModules.home-manager
 
         {

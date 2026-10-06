@@ -19,7 +19,11 @@ window#waybar {
     background: #89b4fa;
     color: #1e1e2e;
 }
-
+#custom-osk {
+  font-size: 22px;
+  padding: 0 18px;
+  min-width: 48px;
+}
 #clock,
 #battery,
 #network,

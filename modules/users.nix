@@ -9,6 +9,7 @@
       "networkmanager"
       "video"
       "audio"
+      "seat"
     ];
   };
 }
