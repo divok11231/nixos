@@ -87,5 +87,9 @@
         }
       ];
     };
+    devShells.${system} = {
+  profiling = import ./shells/profiling.nix { inherit pkgs-unstable; };
+  nsight-viewer = import ./shells/nsight-viewer.nix { inherit pkgs-unstable; };
+};
   };
 }

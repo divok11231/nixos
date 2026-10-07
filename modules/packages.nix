@@ -21,7 +21,8 @@
     # Editors
     vim
     neovim
-    #obsidian
+    obsidian
+    foot
 
     # Dev
     gh

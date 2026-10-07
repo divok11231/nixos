@@ -28,7 +28,7 @@ zramSwap.enable = true;
   programs.steam.gamescopeSession.enable = true;
   services.seatd.enable = true;
   programs.xwayland.enable = true;
-
+  environment.sessionVariables.NSIGHT_QT_SCALE = "2";
   security.rtkit.enable = true;
   programs.uwsm.enable = true;
   programs.hyprland = {
@@ -42,7 +42,7 @@ zramSwap.enable = true;
     ./hardware-configuration.nix
     ../../modules/packages.nix
     ../../modules/users.nix
-     ../../modules/wvkbd.nix
+    ../../modules/wvkbd.nix
     ../../modules/fonts.nix
     ../../modules/bluetooth.nix
     ../../modules/audio.nix
@@ -50,6 +50,7 @@ zramSwap.enable = true;
     ../../modules/desktop.nix
     ../../modules/networking/hosts.nix
     ../../modules/opencode.nix
+    ./autologin.nix
   ];
 networking.firewall = {
   enable = true;

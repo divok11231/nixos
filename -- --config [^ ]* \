@@ -1,0 +1,1 @@
+{ path=/nix/store/bzj1v7ci3329259l6xrcsj662h72fv3d-greetd-0.10.3/bin/greetd ; argv[]=/nix/store/bzj1v7ci3329259l6xrcsj662h72fv3d-greetd-0.10.3/bin/greetd --config /nix/store/v2psf4rhasj6yizzvrm567zln4zlm4md-greetd.toml ; ignore_errors=no ; start_time=[Tue 2025-07-22 15:16:29 IST] ; stop_time=[n/a] ; pid=1105 ; code=(null) ; status=0/0 }

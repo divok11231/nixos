@@ -6,7 +6,8 @@
       "hyprland/workspaces"
     ],
     "modules-center": [
-      "clock"
+      "clock",
+      "custom/osk"
     ],
     "modules-right": [
       "pulseaudio",
@@ -45,8 +46,8 @@
     },
     "custom/osk": {
       "exec": "echo ⌨",
-      "exec-if": "pgrep -x wvkbd-mobintl",
-      "interval": 5,
+      "format": "⌨",
+      "interval": "once",
       "on-click": "pkill -RTMIN wvkbd-mobintl",
       "tooltip": false
     },
