@@ -51,6 +51,7 @@ zramSwap.enable = true;
     ../../modules/networking/hosts.nix
     ../../modules/opencode.nix
     ./autologin.nix
+    ./temps.nix
   ];
 networking.firewall = {
   enable = true;

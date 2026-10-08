@@ -23,6 +23,7 @@
     neovim
     obsidian
     foot
+    st
 
     # Dev
     gh
