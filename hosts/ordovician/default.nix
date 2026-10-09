@@ -5,6 +5,7 @@
 { config, lib, pkgs, ... }:
 
 {
+  hardware.microsoft-surface.kernelVersion = "stable";
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
   boot.loader.systemd-boot.enable = true;
