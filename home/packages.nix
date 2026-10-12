@@ -32,7 +32,7 @@
     hyprpanel
     steam
     slack
-    mastodon
+    toot
     mpv
     hyprpaper
     unzip
