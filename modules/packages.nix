@@ -9,6 +9,7 @@
     btop
     brightnessctl
     pavucontrol
+    pactl
     blueman
     networkmanagerapplet
     chromium

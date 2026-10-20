@@ -3,7 +3,7 @@
 {
   imports = [
     ./packages.nix
-    ./waybar
+    # ./waybar
     ./wofi.nix
     ./dunst.nix
     ./hyprpaper.nix
@@ -14,6 +14,7 @@
     # ./git.nix
     # ./fish.nix
     ./mango.nix
+    ./quickshell.nix
   ];
 
   home.username = "kovid";
