@@ -3,6 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    
+mango = {
+  url = "github:mangowm/mango";
+  inputs.nixpkgs.follows = "nixpkgs";
+};
     nixos-hardware = {
   url = "github:NixOS/nixos-hardware";
   inputs.nixpkgs.follows = "nixpkgs";
@@ -14,7 +19,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, mango, ... }:
   let
     system = "x86_64-linux";
     pkgs-unstable =
@@ -22,6 +27,7 @@
     pkgs = import nixpkgs-unstable {
       inherit system;
       config.allowUnfree = true;
+      allowBroken = true;
     };
 
     bun_1_3_13 = pkgs.bun.overrideAttrs (old: rec {
@@ -80,9 +86,16 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
+          home-manager.users.kovid = {
+  imports = [
+    mango.hmModules.mango
+    ./home
+    ./home/mango.nix
+  ];
 
-          home-manager.users.kovid = {imports = [./home];
-	  disabledModules = [./home/nsys.nix];
+  disabledModules = [
+    ./home/nsys.nix
+  ];
 };
         }
       ];

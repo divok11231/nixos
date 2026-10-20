@@ -13,6 +13,7 @@
     ./kitty.nix
     # ./git.nix
     # ./fish.nix
+    ./mango.nix
   ];
 
   home.username = "kovid";

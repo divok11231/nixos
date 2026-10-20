@@ -29,7 +29,6 @@ zramSwap.enable = true;
   programs.steam.gamescopeSession.enable = true;
   services.seatd.enable = true;
   programs.xwayland.enable = true;
-  environment.sessionVariables.NSIGHT_QT_SCALE = "2";
   security.rtkit.enable = true;
   programs.uwsm.enable = true;
   programs.hyprland = {
