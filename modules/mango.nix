@@ -126,7 +126,7 @@
         snap_distance = 30;
         drag_tile_to_tile = 1;
         tag_carousel = 1;
-        monitor_rule = "name:^eDP-1$,width:2736,height:1824,refresh:59.959,x:0,y:0,scale:2.0";
+        monitor_rule = "name:^eDP-1$,width:2736,height:1824,refresh:59.959,x:0,y:0,scale:1.75";
         touch_enable = 1;
         touch_enable_mouse_emulation = 1;
         sloppy_focus = 1;
