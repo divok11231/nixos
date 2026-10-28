@@ -9,8 +9,8 @@
     btop
     brightnessctl
     pavucontrol
-    pactl
     blueman
+    pulseaudio
     networkmanagerapplet
     chromium
     # Desktop

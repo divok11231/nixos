@@ -3,18 +3,15 @@
 {
   imports = [
     ./packages.nix
-    # ./waybar
-    ./wofi.nix
     ./dunst.nix
-    ./hyprpaper.nix
     ./nvim.nix
     ./nsys.nix
-    # ./hyprland
     ./kitty.nix
     # ./git.nix
-    # ./fish.nix
     ./mango.nix
+    ./gestures.nix
     ./quickshell.nix
+    ./squeekboard.nix
   ];
 
   home.username = "kovid";

@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import "../theme"
-
+import Quickshell
 Item {
     id: root
     implicitHeight: grid.implicitHeight
@@ -85,12 +85,16 @@ Item {
         rowSpacing: 10
 
         QuickToggle {
-            icon: SystemTogglesState.nightLightOn ? "󰖔" : "󰖙"
-            label: "Night Light"
-            active: SystemTogglesState.nightLightOn
+             icon: "󰌌"
+            label: "Keyboard"
+            active: false
             accentColor: PanelColors.brightness
-            onClicked: SystemTogglesState.toggleNightLight()
-        }
+            onClicked: Quickshell.execDetached([
+                "/bin/sh", "-c",
+                "if pgrep -x wvkbd-mobintl >/dev/null; then pkill -x wvkbd-mobintl; else wvkbd-mobintl; fi"
+              ])  
+            }
+
 
         QuickToggle {
             icon: "󰅶"

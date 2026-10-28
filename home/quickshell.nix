@@ -13,21 +13,23 @@
 
   xdg.configFile."quickshell".source =
     config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/src/meloworld-dotfiles/quickshell";
+      "${config.home.homeDirectory}/nixos/home/quickshell";
 
-  systemd.user.services.quickshell-bar = {
+  systemd.user.services.quickshell = {
     Unit = {
-      Description = "Meloworld Quickshell bar";
+      Description = "Meloworld Quickshell";
       After = [ "graphical-session.target" ];
       PartOf = [ "graphical-session.target" ];
     };
 
     Service = {
-      ExecStart = "${pkgs.quickshell}/bin/qs -p %h/.config/quickshell/bar-only";
+      ExecStart = "${pkgs.quickshell}/bin/qs -p %h/.config/quickshell/shell.qml";
       Restart = "on-failure";
-      RestartSec = 2;
     };
 
-    Install.WantedBy = [ "graphical-session.target" ];
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
   };
 }
+

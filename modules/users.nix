@@ -10,6 +10,7 @@
       "video"
       "audio"
       "seat"
+      "input"
     ];
   };
 }

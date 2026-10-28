@@ -40,6 +40,7 @@ zramSwap.enable = true;
   services.openssh.enable = true;
   imports = [
     ./hardware-configuration.nix
+    ../../modules/ipts-touchscreen.nix
     ../../modules/packages.nix
     ../../modules/users.nix
     ../../modules/wvkbd.nix

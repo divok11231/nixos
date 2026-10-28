@@ -12,6 +12,8 @@
     alsa-utils
     pipewire.jack
     guitarix
+    swaybg
+    lisgd
     
 
     kitty
@@ -32,9 +34,7 @@
     hyprpanel
     steam
     slack
-    toot
     mpv
-    hyprpaper
     unzip
     zip
   ];
