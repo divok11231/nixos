@@ -131,7 +131,7 @@
         touch_enable_mouse_emulation = 1;
         sloppy_focus = 1;
         bind = [
-          "ALT,Return,spawn,foot"
+          "ALT,Return,spawn,st"
           "ALT,Q,killclient"
           "ALT+SHIFT,Q,quit"
           "ALT+SHIFT,F,togglefullscreen"
@@ -140,7 +140,7 @@
           "ALT,V,spawn_shell,qs ipc call launcher openClipboard"
           "ALT,S,spawn_shell,grim -g \"$(slurp)\" - | wl-copy"
           "ALT,N,spawn,nautilus"
-          "ALT+SHIFT,Return,spawn,foot"
+          "ALT+SHIFT,Return,spawn,st"
           "ALT,W,spawn,firefox"
           "ALT,Z,spawn,firefox --private-window"
 

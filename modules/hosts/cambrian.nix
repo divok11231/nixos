@@ -18,6 +18,7 @@ in
       nixos.home-manager
       nixos.unstable
       nixos.tooling
+      nixos.st
       nixos.fonts
       nixos.audio
       nixos.bluetooth

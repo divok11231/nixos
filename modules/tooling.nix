@@ -7,9 +7,6 @@
     environment.systemPackages = with pkgs; [
       wireguard-tools
 
-      # Terminal (mango's bind target and greetd's fallback)
-      foot
-
       # Monitoring
       htop
       btop
