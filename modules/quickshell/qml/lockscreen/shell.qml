@@ -108,7 +108,7 @@ ShellRoot {
                     // Wallpaper
                     Image {
                         anchors.fill: parent
-                        source: "file://" + Quickshell.env("HOME") + "/.config/quickshell/lockscreen/wallpaper.png"
+                        source: "file://" + Quickshell.env("HOME") + "/.local/state/quickshell/lockscreen-wallpaper.png"
                         fillMode: Image.PreserveAspectCrop
                         asynchronous: true
                         visible: status === Image.Ready

@@ -10,7 +10,9 @@ SectionBase {
     property string username: "User"
     property string hostname: "Host"
     property string avatarPath: ""
-    property string localAvatar: Quickshell.env("HOME") + "/.config/quickshell/avatar.png"
+    // ~/.config/quickshell is store-backed and read-only, so the avatar the
+    // quickshell service writes lives in state.
+    property string localAvatar: Quickshell.env("HOME") + "/.local/state/quickshell/avatar.png"
 
     property int currentHour: new Date().getHours()
 
@@ -72,7 +74,9 @@ SectionBase {
             onStreamFinished: {
                 let selected = text.trim();
                 if (selected.length > 0) {
-                    saveAvatar.command = ["cp", selected, root.localAvatar];
+                    // -D creates the parent directory, which a pure
+                    // ~/.config/quickshell would otherwise have to provide.
+                    saveAvatar.command = ["install", "-D", "-m", "0644", selected, root.localAvatar];
                     saveAvatar.running = true;
                 }
             }

@@ -1,12 +1,14 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
-  virtualisation.docker.enable = true;
+  flake.modules.nixos.docker = { pkgs, ... }: {
+    virtualisation.docker.enable = true;
 
-  users.users.kovid.extraGroups = [ "docker" ];
+    users.users.kovid.extraGroups = [ "docker" ];
 
-  environment.systemPackages = with pkgs; [
-    docker
-    docker-compose
-  ];
+    environment.systemPackages = with pkgs; [
+      docker
+      docker-compose
+    ];
+  };
 }

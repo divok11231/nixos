@@ -199,7 +199,9 @@ Item {
 
         function apply(path, mediaType) {
             var p    = path.replace(/'/g, "'\\''")
-            var lock = "\"$HOME/.config/quickshell/lockscreen/wallpaper.png\""
+            // ~/.config/quickshell is store-backed and read-only, so the
+            // lockscreen wallpaper the quickshell service writes lives in state.
+            var lock = "\"$HOME/.local/state/quickshell/lockscreen-wallpaper.png\""
             var script
 
             if (mediaType === "video") {
@@ -207,7 +209,7 @@ Item {
                     "pkill -x awww-daemon 2>/dev/null; " +
                     "pkill -x mpvpaper 2>/dev/null; " +
                     "while pgrep -x 'mpvpaper|awww-daemon' > /dev/null; do sleep 0.05; done; " +
-                    "mkdir -p \"$HOME/.cache/meloworld\"; " +
+                    "mkdir -p \"$HOME/.local/state/quickshell\" \"$HOME/.cache/meloworld\"; " +
                     "echo 'video:" + p + "' > \"$HOME/.cache/meloworld/last-wallpaper\"; " +
                     // Extract frame at 1s → lockscreen wallpaper (runs in background, non-blocking)
                     "ffmpeg -y -ss 00:00:01 -i '" + p + "' -vframes 1 " + lock + " >/dev/null 2>&1 & " +
@@ -217,7 +219,7 @@ Item {
                     "pkill -x mpvpaper 2>/dev/null; " +
                     "awww query >/dev/null 2>&1 || { awww-daemon &>/dev/null & " +
                     "for i in $(seq 1 20); do sleep 0.1 && awww query >/dev/null 2>&1 && break; done; }; " +
-                    "mkdir -p \"$HOME/.cache/meloworld\"; " +
+                    "mkdir -p \"$HOME/.local/state/quickshell\" \"$HOME/.cache/meloworld\"; " +
                     "echo 'image:" + p + "' > \"$HOME/.cache/meloworld/last-wallpaper\"; " +
                     "awww img '" + p + "' --transition-type fade --transition-duration 0.8 --transition-fps 60; " +
                     // Copy image to a consistent path the lockscreen always reads
