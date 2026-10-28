@@ -28,6 +28,7 @@ in
       nixos.graphics
       nixos.extra-hosts
       nixos.opencode
+      nixos.quickshell
       nixos.mango
       nixos.surface
       nixos.thermals

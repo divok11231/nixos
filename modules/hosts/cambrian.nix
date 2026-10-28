@@ -28,6 +28,7 @@ in
       nixos.nvidia
       nixos.extra-hosts
       nixos.opencode
+      nixos.quickshell
       nixos.mango
 
       # User features

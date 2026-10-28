@@ -3,6 +3,10 @@
 # The QML tree is deployed into the store, so ~/.config/quickshell is read-only.
 # Anything the service needs to write lives in ~/.local/state/quickshell.
 {
+  flake.modules.nixos.quickshell = {
+    services.upower.enable = true;
+  };
+
   flake.modules.homeManager.quickshell =
     { pkgs, ... }:
     {

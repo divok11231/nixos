@@ -7,7 +7,7 @@ import "../../theme"
 Pill {
     id: root
     property var battery: UPower.displayDevice
-    property bool hasBattery: battery && battery.isLaptopBattery
+    property bool hasBattery: battery && battery.state !== UPowerDeviceState.Unknown
     property int pct: hasBattery ? Math.round(battery.percentage * 100) : 0
     property bool charging: hasBattery && (
         battery.state === UPowerDeviceState.Charging ||
