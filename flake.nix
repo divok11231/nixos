@@ -3,106 +3,90 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    
-mango = {
-  url = "github:mangowm/mango";
-  inputs.nixpkgs.follows = "nixpkgs";
-};
-    nixos-hardware = {
-  url = "github:NixOS/nixos-hardware";
-  inputs.nixpkgs.follows = "nixpkgs";
-};
+
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    mango = {
+      url = "github:mangowm/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, mango, ... }:
-  let
-    system = "x86_64-linux";
-    pkgs-unstable =
-  let
-    pkgs = import nixpkgs-unstable {
-      inherit system;
-      config.allowUnfree = true;
-      allowBroken = true;
-    };
+  outputs =
+    {
+      nixpkgs,
+      nixpkgs-unstable,
+      home-manager,
+      nixos-hardware,
+      mango,
+      ...
+    }:
+    let
+      system = "x86_64-linux";
 
-    bun_1_3_13 = pkgs.bun.overrideAttrs (old: rec {
-      version = "1.3.13";
+      pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        config = {
+          allowUnfree = true;
+          allowBroken = true;
+        };
+      };
 
-      src = pkgs.fetchurl {
-        url = "https://github.com/oven-sh/bun/releases/download/bun-v${version}/bun-${
+      homeModule = {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
+        home-manager.users.kovid.imports = [
+          mango.hmModules.mango
+          ./home
+        ];
+      };
+    in
+    {
+      nixosConfigurations.cambrian = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit pkgs-unstable; };
+
+        modules = [
+          ./hosts/cambrian/default.nix
+          mango.nixosModules.mango
+          home-manager.nixosModules.home-manager
+          homeModule
+        ];
+      };
+
+      nixosConfigurations.ordovician = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit pkgs-unstable; };
+
+        modules = [
+          ./hosts/ordovician/default.nix
+          nixos-hardware.nixosModules.microsoft-surface-pro-intel
+          mango.nixosModules.mango
+          home-manager.nixosModules.home-manager
+          homeModule
+
           {
-            "x86_64-linux" = "linux-x64-baseline";
-            "aarch64-linux" = "linux-aarch64";
-            "aarch64-darwin" = "darwin-aarch64";
-          }.${system}
-        }.zip";
-
-        hash = {
-          "x86_64-linux" = "sha256-nYokKSpwaAkCBdqsCloiP19pc29Sh+N7+I07QDHtx1A=";
-          "aarch64-linux" = "sha256-cLrkGzkIsKEg4eWMXIrzDnSvrjuNEbDT/djnh937SyI=";
-          "aarch64-darwin" = "sha256-VGfj9l26Umuf6pjwzOBO+vwMY+Fpcz7Ce4dqOtMtoZA=";
-        }.${system};
+            home-manager.users.kovid = {
+              disabledModules = [ ./home/nsys.nix ];
+            };
+          }
+        ];
       };
-    });
-  in
-    pkgs // {
-      opencode = pkgs.opencode.override {
-        bun = bun_1_3_13;
+
+      devShells.${system} = {
+        profiling = import ./shells/profiling.nix { inherit pkgs-unstable; };
+        nsight-viewer = import ./shells/nsight-viewer.nix { inherit pkgs-unstable; };
       };
     };
-  in {
-    nixosConfigurations.cambrian = nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = { inherit pkgs-unstable; };
-
-      modules = [
-        ./hosts/cambrian/default.nix
-        home-manager.nixosModules.home-manager
-
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
-
-          home-manager.users.kovid = import ./home;
-        }
-      ];
-    };
-    nixosConfigurations.ordovician = nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = { inherit pkgs-unstable; };
-
-      modules = [
-        ./hosts/ordovician/default.nix
-        nixos-hardware.nixosModules.microsoft-surface-pro-intel
-        home-manager.nixosModules.home-manager
-
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
-          home-manager.users.kovid = {
-  imports = [
-    mango.hmModules.mango
-    ./home
-    ./home/mango.nix
-  ];
-
-  disabledModules = [
-    ./home/nsys.nix
-  ];
-};
-        }
-      ];
-    };
-    devShells.${system} = {
-  profiling = import ./shells/profiling.nix { inherit pkgs-unstable; };
-  nsight-viewer = import ./shells/nsight-viewer.nix { inherit pkgs-unstable; };
-};
-  };
 }

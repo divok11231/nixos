@@ -1,76 +1,43 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  hardware.microsoft-surface.kernelVersion = "stable";
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.configurationLimit = 5;
-  networking.hostName = "ordovician"; # Define your hostname.
-  nixpkgs.config.allowUnfree = true;  
-  networking.networkmanager.enable = true;
-
-  time.timeZone = "Asia/Kolkata";
-  i18n.defaultLocale = "en_US.UTF-8";
-  hardware.graphics= {
-    enable = true;
-    enable32Bit = true;
-    extraPackages = with pkgs; [intel-media-driver];
-};
-hardware.enableRedistributableFirmware = true;
-hardware.sensor.iio.enable = true;
-zramSwap.enable = true;
-  programs.gamescope.enable = true;
-  programs.steam.gamescopeSession.enable = true;
-  services.seatd.enable = true;
-  programs.xwayland.enable = true;
-  security.rtkit.enable = true;
-  programs.uwsm.enable = true;
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-  };
-  services.tailscale.enable = true;
-  programs.firefox.enable = true;
-  services.openssh.enable = true;
   imports = [
     ./hardware-configuration.nix
-    ../../modules/ipts-touchscreen.nix
-    ../../modules/packages.nix
-    ../../modules/users.nix
-    ../../modules/wvkbd.nix
-    ../../modules/fonts.nix
-    ../../modules/bluetooth.nix
-    ../../modules/audio.nix
-    ../../modules/lock.nix
-    ../../modules/desktop.nix
-    ../../modules/networking/hosts.nix
-    ../../modules/opencode.nix
     ./autologin.nix
     ./temps.nix
+
+    ../../modules/host-base.nix
+    ../../modules/desktop.nix
+
+    ../../modules/packages.nix
+    ../../modules/users.nix
+    ../../modules/fonts.nix
+    ../../modules/audio.nix
+    ../../modules/bluetooth.nix
+    ../../modules/lock.nix
+    ../../modules/networking/hosts.nix
+    ../../modules/opencode.nix
+
+    ../../modules/ipts-touchscreen.nix
+    ../../modules/wvkbd.nix
   ];
-networking.firewall = {
-  enable = true;
-  # Discord uses a wide range of UDP ports (usually 50000-65535) for WebRTC
-  allowedUDPPortRanges = [ { from = 50000; to = 65535; } ];
-};
 
+  networking.hostName = "ordovician";
+  system.stateVersion = "26.05";
 
-  services.greetd = {
+  hardware.microsoft-surface.kernelVersion = "stable";
+  hardware.enableRedistributableFirmware = true;
+  hardware.sensor.iio.enable = true;
+
+  hardware.graphics = {
     enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd 'start-hyprland'";
-        user = "greeter";
-      };
-    };
+    enable32Bit = true;
+    extraPackages = with pkgs; [ intel-media-driver ];
   };
-  system.stateVersion = "26.05"; # Did you read the comment?
 
+  zramSwap.enable = true;
+  services.seatd.enable = true;
+
+  programs.gamescope.enable = true;
+  programs.steam.gamescopeSession.enable = true;
 }
-
