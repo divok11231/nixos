@@ -16,6 +16,11 @@
             "squeekboard.service"
           ];
           PartOf = [ "graphical-session.target" ];
+          # lisgd dies if the IPTSD virtual touchscreen isn't there yet, and
+          # iptsd itself can take a few seconds to win its boot-time race.
+          # Keep retrying instead of tripping the default 5-in-10s limit.
+          StartLimitIntervalSec = 120;
+          StartLimitBurst = 30;
         };
 
         Service = {
@@ -27,6 +32,7 @@
               -g "1,DU,N,*,R,${bin}/osk-hide"
           '';
           Restart = "on-failure";
+          RestartSec = "2s";
         };
 
         Install.WantedBy = [ "graphical-session.target" ];
