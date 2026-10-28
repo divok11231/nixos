@@ -88,6 +88,16 @@ Item {
             color: PanelColors.textAccent
             Behavior on color { ColorAnimation { duration: PanelColors.transitionDuration } }
         }
+
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: Math.round(root.value) + "%"
+            font.pixelSize: 12
+            font.bold: true
+            font.family: "JetBrainsMono Nerd Font"
+            color: PanelColors.textAccent
+            Behavior on color { ColorAnimation { duration: PanelColors.transitionDuration } }
+        }
     }
 
 }
