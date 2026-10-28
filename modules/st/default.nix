@@ -44,35 +44,54 @@
         ];
 
         postPatch = ''
-          # Take upstream's config and enable the patches we want. These
-          # substituteInPlace calls fail the build if upstream rewords any of
-          # the lines, which is the point: a patch must never get dropped
-          # silently on a bump.
-          cp config.def.h config.h
+          # config.h is vendored: the palette, alpha, box-drawn glyphs and
+          # shell live there. patches.h comes from upstream's list with the
+          # patches we want on, and these substituteInPlace calls fail the
+          # build if upstream rewords any of those lines -- which is the
+          # point, a patch must never get dropped silently on a bump.
+          cp ${./config.h} config.h
           cp patches.def.h patches.h
 
-          # Box-drawing is compiled in but stays inert until these say
-          # otherwise; reflow brings scrollback with it.
+          # Scrollback and the wheel bindings that drive it: plain wheel and
+          # Shift+PageUp/Down scroll the buffer on the normal screen, and
+          # apps on the alternate screen (less, htop) get line-by-line ^Y/^E
+          # unless they ask for mouse reporting.
+          #
+          # Two better options stay off:
+          #  - REFLOW gives the same scrollback plus re-wrapping on resize,
+          #    but it calls selremove(), defined nowhere in this fork, and its
+          #    3-argument selscroll clashes with st.c's 2-argument one.
+          #  - BOXDRAW only ever compiles the X11 renderer for it: wl.c keeps
+          #    the ATTR_BOXDRAW bit but never draws it, so it would drag in
+          #    libXft to change nothing. The Nerd Font's own box glyphs show.
           substituteInPlace patches.h \
-            --replace-fail '#define BOXDRAW_PATCH 0' '#define BOXDRAW_PATCH 1' \
-            --replace-fail '#define REFLOW_PATCH 0' '#define REFLOW_PATCH 1'
-
-          substituteInPlace config.h \
-            --replace-fail 'const int boxdraw = 0;' 'const int boxdraw = 1;' \
-            --replace-fail 'const int boxdraw_bold = 0;' 'const int boxdraw_bold = 1;' \
-            --replace-fail 'const int boxdraw_braille = 0;' 'const int boxdraw_braille = 1;'
+            --replace-fail '#define SCROLLBACK_PATCH 0' '#define SCROLLBACK_PATCH 1' \
+            --replace-fail '#define SCROLLBACK_MOUSE_PATCH 0' '#define SCROLLBACK_MOUSE_PATCH 1' \
+            --replace-fail '#define SCROLLBACK_MOUSE_ALTSCREEN_PATCH 0' \
+            '#define SCROLLBACK_MOUSE_ALTSCREEN_PATCH 1'
 
           # The shell in config.h is only a fallback for unset SHELL, but
           # point it at a real one instead of /usr/bin/zsh.
           substituteInPlace config.h \
             --replace-fail '"/usr/bin/zsh"' '"${pkgs.bashInteractive}/bin/bash"'
 
-          # Stop make from copying the defaults over what we just wrote.
+          # Make regenerates config.h/patches.h from their .def templates
+          # whenever `options` is newer than them: the build touches options
+          # first, then decides our freshly written files are stale. Create
+          # options now and stamp ours after it, so the copies stick.
+          touch options
           touch config.h patches.h
         '';
 
-        # The install target runs `tic -sx st.info`, which honours TERMINFO.
+        # Refuse to install a terminal that silently lost the palette or the
+        # patches -- this is exactly what the make rules above will do if the
+        # touch ordering ever regresses.
         preInstall = ''
+          grep -q '#define SCROLLBACK_PATCH 1' patches.h
+          grep -q '#define SCROLLBACK_MOUSE_ALTSCREEN_PATCH 1' patches.h
+          grep -q '#212121' config.h
+          grep -q '#define DEFAULT_ALPHA 0.9' config.h
+
           export TERMINFO="$out/share/terminfo"
           mkdir -p "$TERMINFO"
         '';
@@ -84,9 +103,10 @@
         '';
 
         postInstall = ''
-          # The desktop file hardcodes upstream's /usr/local prefix.
+          # The desktop file hardcodes upstream's /usr/local prefix. No -A
+          # here: config.h's DEFAULT_ALPHA is the one source for alpha.
           substituteInPlace "$out/share/applications/st-wl.desktop" \
-            --replace-fail 'Exec=/usr/local/bin/st-wl -A .95' 'Exec=st-wl -A .95'
+            --replace-fail 'Exec=/usr/local/bin/st-wl -A .95' 'Exec=st-wl'
 
           # Upstream installs only st-wl; mango's binds and muscle memory
           # reach for st.
