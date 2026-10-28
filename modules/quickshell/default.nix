@@ -19,6 +19,8 @@
         brightnessctl
         playerctl
         papirus-icon-theme
+        # nightlight toggle runs wlsunset
+        wlsunset
       ];
 
       xdg.configFile."quickshell".source = ./qml;

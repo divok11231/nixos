@@ -161,7 +161,7 @@ PanelWindow {
 
         DashCard {
             id: profileCard
-            accent: PanelColors.profile; label: "meloworld"
+            accent: PanelColors.profile; label: "ordovician"
             Layout.fillWidth: true
             implicitHeight: profileCard.header.implicitHeight + profileInner.implicitHeight + (root.cardPad * 2)
             ProfileSection { id: profileInner; width: parent.width }

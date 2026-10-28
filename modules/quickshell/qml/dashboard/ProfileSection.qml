@@ -24,9 +24,9 @@ SectionBase {
     }
 
     readonly property string greeting: {
-        if (currentHour >= 5 && currentHour < 12) return "the wind is rising,"
-        if (currentHour >= 12 && currentHour < 18) return "the rose is watered,"
-        if (currentHour >= 18 && currentHour < 23) return "one more sunset,"
+        if (currentHour >= 5 && currentHour < 12) return "It's daytime retard"
+        if (currentHour >= 12 && currentHour < 18) return "Go eat something and drink water"
+        if (currentHour >= 18 && currentHour < 23) return "go rest"
         return "you tamed the stars,"
     }
 
