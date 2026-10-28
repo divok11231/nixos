@@ -1,40 +1,41 @@
 { pkgs, ... }:
 
+# GUI applications and user-level tooling.
+# Terminals: foot (system) + kitty (programs.kitty). Session utilities that
+# quickshell invokes are declared next to the quickshell service.
 {
   home.packages = with pkgs; [
-    
-
     # Music
-    reaper # Daw
-    pavucontrol # routing and control because I am losing with
-    qpwgraph # patchbay for pipewire
-    neural-amp-modeler-lv2 # because Im lazy and I want to just link things by path
+    reaper # DAW
+    pavucontrol # routing and control
+    qpwgraph # pipewire patchbay
+    neural-amp-modeler-lv2 # because I'm lazy and want to link things by path
     alsa-utils
     pipewire.jack
     guitarix
-    swaybg
-    lisgd
-    
 
-    kitty
+    # Session
+    swaybg
+
+    # Desktop apps
+    chromium
+    vlc
+    nautilus
+    obsidian
     loupe
-    alacritty
-    firefox
     calibre
     zathura
     legcord
-    ripgrep
-    fd
+    steam
+    slack
+    mpv
+    networkmanagerapplet
+
+    # Terminal userland
     fzf
     eza
     bat
     yazi
-    dunst
-    wofi
-    hyprpanel
-    steam
-    slack
-    mpv
     unzip
     zip
   ];

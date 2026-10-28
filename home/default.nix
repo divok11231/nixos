@@ -3,11 +3,9 @@
 {
   imports = [
     ./packages.nix
-    ./dunst.nix
     ./nvim.nix
     ./nsys.nix
     ./kitty.nix
-    # ./git.nix
     ./mango.nix
     ./gestures.nix
     ./quickshell.nix

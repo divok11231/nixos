@@ -9,7 +9,6 @@ import "notifications"
 import "osd"
 import "dashboard"
 import "launcher"
-import "screenshot"
 import "theme"
 
 ShellRoot {
@@ -127,9 +126,6 @@ ShellRoot {
             screen: modelData
         }
     }
-    Variants {
-    }
     PolkitDialog {}
     AppLauncher {}
-    ScreenshotUI {}
 }

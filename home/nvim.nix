@@ -21,7 +21,7 @@
     # Formatters
     stylua
     shfmt
-    nixfmt-rfc-style
+    nixfmt
 
     # Markdown
     markdownlint-cli2

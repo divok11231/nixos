@@ -1,30 +1,28 @@
 { pkgs, ... }:
 
+# System-wide tooling. GUI applications live in home/packages.nix and the
+# binaries the quickshell service shells out to live in home/quickshell.nix.
 {
   environment.systemPackages = with pkgs; [
-   
-    tailscale
     wireguard-tools
+
+    # Terminal (mango's bind target and greetd's fallback)
+    foot
+
+    # Monitoring
     htop
     btop
-    brightnessctl
-    pavucontrol
-    blueman
-    pulseaudio
-    networkmanagerapplet
-    chromium
-    # Desktop
+    fastfetch
+    tree
+    killall
+
+    # Wayland session utilities
     grim
-    vlc 
     slurp
     wl-clipboard
-    fastfetch
-    # Editors
+
+    # Editor
     vim
-    neovim
-    obsidian
-    foot
-    st
 
     # Dev
     gh
@@ -33,23 +31,16 @@
     ninja
     gnumake
     pkg-config
-    clang-tools
-    git
+    clang
     gcc
+    git
     nodejs
     python3
     sshuttle
-    clang
-    hypridle
-    hyprlock
     lazygit
 
-    # Download
-    nautilus
+    # Network / files
     wget
     curl
-
-    tree
-    killall
   ];
 }
