@@ -4,7 +4,7 @@
 # touchscreen and the on-screen keyboard that goes with it.
 {
   flake.modules.nixos.surface =
-    { pkgs, ... }:
+    { ... }:
     {
       imports = [ inputs.nixos-hardware.nixosModules.microsoft-surface-pro-intel ];
 
@@ -30,7 +30,5 @@
         Restart = "on-failure";
         RestartSec = "2s";
       };
-
-      environment.systemPackages = [ pkgs.wvkbd ];
     };
 }

@@ -69,7 +69,10 @@
         zoom_end_ratio = 0.8;
         fade_in_begin_opacity = 0.5;
         fade_out_begin_opacity = 0.8;
-        animation_duration_move = 500;
+        # Every geometry change that isn't open/tag animates through MOVE,
+        # so this is also the window-size-change feel: 500ms lagged behind
+        # the reflow.
+        animation_duration_move = 250;
         animation_duration_open = 400;
         animation_duration_tag = 350;
         animation_duration_close = 400;
@@ -131,8 +134,8 @@
         touch_enable_mouse_emulation = 1;
         sloppy_focus = 1;
         bind = [
-          "ALT,Return,spawn,st"
-          "ALT,Q,killclient"
+          "ALT+SHIFT,Return,spawn,kitty"
+          "ALT+SHIFT,C,killclient"
           "ALT+SHIFT,Q,quit"
           "ALT+SHIFT,F,togglefullscreen"
           # Applications
@@ -140,7 +143,6 @@
           "ALT,V,spawn_shell,qs ipc call launcher openClipboard"
           "ALT,S,spawn_shell,grim -g \"$(slurp)\" - | wl-copy"
           "ALT,N,spawn,nautilus"
-          "ALT+SHIFT,Return,spawn,st"
           "ALT,W,spawn,firefox"
           "ALT,Z,spawn,firefox --private-window"
 

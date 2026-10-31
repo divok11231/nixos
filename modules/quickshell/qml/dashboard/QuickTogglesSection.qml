@@ -85,15 +85,12 @@ Item {
         rowSpacing: 10
 
         QuickToggle {
-             icon: "󰌌"
+            icon: "󰌌"
             label: "Keyboard"
             active: false
             accentColor: PanelColors.brightness
-            onClicked: Quickshell.execDetached([
-                "/bin/sh", "-c",
-                "if pgrep -x wvkbd-mobintl >/dev/null; then pkill -x wvkbd-mobintl; else wvkbd-mobintl; fi"
-              ])  
-            }
+            onClicked: Quickshell.execDetached(["osk-toggle"])
+        }
 
 
         QuickToggle {

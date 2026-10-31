@@ -5,8 +5,9 @@ Item {
     id: root
     property real value: 0
     property color color: PanelColors.audio
-    property string icon: ""
+    property string icon: ""
     property string label: ""
+    property string suffix: "%"
 
     implicitWidth: 80
     implicitHeight: 80
@@ -54,7 +55,8 @@ Item {
             ctx.lineCap = "round"
             ctx.beginPath()
             var startAngle = -Math.PI / 2
-            var endAngle = startAngle + (2 * Math.PI * (root.value / 100))
+            var frac = Math.min(root.value, 100) / 100
+            var endAngle = startAngle + (2 * Math.PI * frac)
             ctx.arc(centerX, centerY, radius, startAngle, endAngle)
             ctx.stroke()
         }
@@ -91,7 +93,7 @@ Item {
 
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
-            text: Math.round(root.value) + "%"
+            text: Math.round(root.value) + root.suffix
             font.pixelSize: 12
             font.bold: true
             font.family: "JetBrainsMono Nerd Font"

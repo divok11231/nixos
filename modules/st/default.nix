@@ -52,6 +52,12 @@
           cp ${./config.h} config.h
           cp patches.def.h patches.h
 
+          # getsel() never assigns lastx in the SCROLLBACK_PATCH branch of
+          # the non-rectangular case, so it copies stack garbage into
+          # MIN(lastx, linelen-1) and walks off into a wild pointer --
+          # Ctrl+Shift+C on any multi-line selection segfaults.
+          patch -p1 < ${./getsel-lastx.patch}
+
           # Scrollback and the wheel bindings that drive it: plain wheel and
           # Shift+PageUp/Down scroll the buffer on the normal screen, and
           # apps on the alternate screen (less, htop) get line-by-line ^Y/^E

@@ -43,6 +43,7 @@ in
           hm.nvim
           hm.kitty
           hm.gestures
+          hm.autorotate
           hm.quickshell
           hm.squeekboard
           hm.mango

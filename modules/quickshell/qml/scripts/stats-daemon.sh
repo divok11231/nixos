@@ -22,16 +22,28 @@ while true; do
   done < /proc/meminfo
   mem_usage=$((100*(mem_total-mem_avail)/mem_total))
 
-  # Calculate GPU Usage
-  gpu_usage=0
-  for f in /sys/class/drm/card*/device/gpu_busy_percent; do
-    if [ -f "$f" ]; then
-      read -r gpu_usage < "$f"
-      break
-    fi
+  # Calculate CPU temperature (degrees Celsius)
+  temp=0
+  for zone in /sys/class/hwmon/hwmon*; do
+    [ -f "$zone/name" ] || continue
+    case "$(cat "$zone/name")" in
+      coretemp)
+        for lbl in "$zone"/temp*_label; do
+          [ -f "$lbl" ] || continue
+          [ "$(cat "$lbl")" = "Package id 0" ] || continue
+          temp=$(( $(cat "${lbl%_label}_input") / 1000 ))
+          break 2
+        done
+        ;;
+      k10temp) # AMD fallback
+        [ -f "$zone/temp1_input" ] || continue
+        temp=$(( $(cat "$zone/temp1_input") / 1000 ))
+        break
+        ;;
+    esac
   done
 
-  echo "$cpu_usage $mem_usage $gpu_usage"
+  echo "$cpu_usage $mem_usage $temp"
 
   # Sleep for 2 seconds to reduce background CPU overhead
   sleep 2

@@ -21,6 +21,8 @@
         papirus-icon-theme
         # nightlight toggle runs wlsunset
         wlsunset
+        # launcher's clipboard view runs `cliphist list|decode|delete|wipe`
+        cliphist
       ];
 
       xdg.configFile."quickshell".source = ./qml;
@@ -34,6 +36,26 @@
 
         Service = {
           ExecStart = "${pkgs.quickshell}/bin/qs -p %h/.config/quickshell/shell.qml";
+          Restart = "on-failure";
+        };
+
+        Install = {
+          WantedBy = [ "graphical-session.target" ];
+        };
+      };
+
+      # Clipboard history: every change to the Wayland clipboard gets appended
+      # to cliphist's store, which is what the launcher's clipboard view
+      # (ALT,V) reads with `cliphist list`.
+      systemd.user.services.cliphist-store = {
+        Unit = {
+          Description = "Clipboard history watcher (wl-paste | cliphist store)";
+          After = [ "graphical-session.target" ];
+          PartOf = [ "graphical-session.target" ];
+        };
+
+        Service = {
+          ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${pkgs.cliphist}/bin/cliphist store";
           Restart = "on-failure";
         };
 

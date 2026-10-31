@@ -71,6 +71,7 @@ Singleton {
     readonly property color cpuRing:           isDark ? Colors.red200 : Colors.red200
     readonly property color ramRing:           isDark ? Colors.blue200 : Colors.blue200
     readonly property color gpuRing:           isDark ? Colors.green200 : Colors.green200
+    readonly property color tempRing:          isDark ? Colors.orange200 : Colors.orange200
 
     // Functions
     function profileColor(profile) {

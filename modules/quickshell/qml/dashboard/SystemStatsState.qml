@@ -9,7 +9,7 @@ Singleton {
 
     property real cpuUsage: 0
     property real ramUsage: 0
-    property real gpuUsage: 0
+    property real cpuTemp: 0
 
     Process {
         id: statsProc
@@ -26,9 +26,9 @@ Singleton {
                     root.cpuUsage = Math.min(100, Math.max(0, parseInt(parts[0]) || 0))
                     root.ramUsage = Math.min(100, Math.max(0, parseInt(parts[1]) || 0))
 
-                    let rawGpu = parseInt(parts[2]) || 0
-                    let smoothVal = (rawGpu * 0.2) + (root.gpuUsage * 0.8)
-                    root.gpuUsage = Math.min(100, Math.max(0, smoothVal))
+                    let rawTemp = parseInt(parts[2]) || 0
+                    let smoothVal = (rawTemp * 0.3) + (root.cpuTemp * 0.7)
+                    root.cpuTemp = Math.min(110, Math.max(0, smoothVal))
                 }
             }
         }

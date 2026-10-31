@@ -29,7 +29,7 @@
               -d /dev/input/ipts-touchscreen \
               -m 1500 -t 100 \
               -g "1,DU,B,*,R,${bin}/osk-show" \
-              -g "1,DU,N,*,R,${bin}/osk-hide"
+              -g "2,UD,*,*,R,${bin}/osk-hide"
           '';
           Restart = "on-failure";
           RestartSec = "2s";

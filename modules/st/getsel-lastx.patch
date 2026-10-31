@@ -1,0 +1,28 @@
+diff --git a/st.c b/st.c
+index 646d51f..a26ba0e 100644
+--- a/st.c
++++ b/st.c
+@@ -727,7 +727,22 @@ getsel(void)
+ 			lastx = sel.ne.x;
+ 		} else {
+ 			#if SCROLLBACK_PATCH
+-			gp = &TLINE(y)[sel.nb.y == y ? sel.nb.x : 0];
++			int x = sel.nb.y == y ? sel.nb.x : 0;
++			gp = &TLINE(y)[x];
++			if (sel.ne.y != y) {
++				// When in tmux, stop at the line DELIM
++				lastx = x;
++				const Glyph *gptest = &TLINE(y)[lastx];
++				while((lastx<term.col-1) && !IS_SNAP_LINE_DELIM(gptest->u)) {
++					lastx++;
++					gptest++;
++				}
++				if(IS_SNAP_LINE_DELIM(gptest->u)) {
++					lastx--;
++				}
++			}
++			else
++				lastx = sel.ne.x;
+ 			#else
+ 			int x = sel.nb.x;
+ 			gp = &term.line[y][x];

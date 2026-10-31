@@ -37,5 +37,8 @@
     services.openssh.enable = true;
 
     programs.firefox.enable = true;
+
+    # Lets GSettings persist (squeekboard's auto-show, GTK theme switching).
+    programs.dconf.enable = true;
   };
 }

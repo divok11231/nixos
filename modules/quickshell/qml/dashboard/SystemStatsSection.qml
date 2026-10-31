@@ -22,8 +22,9 @@ SectionBase {
             label: "RAM"; icon: ""; value: SystemStatsState.ramUsage; color: PanelColors.ramRing
         }
         StatRing {
-            id: gpuRing
-            label: "GPU"; icon: "󰢮"; value: SystemStatsState.gpuUsage; color: PanelColors.gpuRing
+            id: tempRing
+            label: "TEMP"; icon: "󰜗"; value: SystemStatsState.cpuTemp;
+            suffix: "°C"; color: PanelColors.tempRing
         }
     }
 }
