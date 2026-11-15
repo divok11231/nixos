@@ -38,6 +38,14 @@
 
     programs.firefox.enable = true;
 
+    # System-level steam (not just the package) adds the 32-bit libs, controller
+    # udev rules and Remote Play firewall ports, and is what gamescopeSession
+    # hangs off of.
+    programs.steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+    };
+
     # Lets GSettings persist (squeekboard's auto-show, GTK theme switching).
     programs.dconf.enable = true;
   };

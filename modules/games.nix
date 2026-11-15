@@ -1,7 +1,7 @@
 { ... }:
 
-# ordovician plays games through gamescope; the steam app itself is in the
-# apps feature, which every host gets.
+# ordovician plays games through gamescope; steam itself is enabled in
+# host-base, which every host gets.
 {
   flake.modules.nixos.games = {
     programs.gamescope.enable = true;

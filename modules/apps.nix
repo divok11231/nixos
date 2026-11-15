@@ -38,7 +38,6 @@
       calibre
       zathura
       legcord
-      steam
       slack
       mpv
 

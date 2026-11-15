@@ -48,6 +48,10 @@ in
           hm.squeekboard
           hm.mango
         ];
+
+        # The Surface's 2736x1824 panel needs HiDPI scaling.
+        home-manager.users.kovid.wayland.windowManager.mango.settings.monitor_rule =
+          "name:^eDP-1$,width:2736,height:1824,refresh:59.959,x:0,y:0,scale:1.75";
       }
 
       # A lambda needs parens in list position: Nix parses a bare leading `{`

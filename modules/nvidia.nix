@@ -14,6 +14,9 @@
       modesetting.enable = true;
       nvidiaSettings = true;
       powerManagement.enable = false;
+      # Powers the 3050 fully off when nothing is offloaded to it (needs
+      # offload mode and a Turing-or-newer GPU).
+      powerManagement.finegrained = true;
 
       prime = {
         offload = {
