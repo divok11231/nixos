@@ -5,9 +5,15 @@
     users.users.kovid = {
       initialPassword = "kovid123";
       isNormalUser = true;
-      # ordovician's key, so the hosts can reach each other over tailscale.
+      # Every key allowed to log in. host-base turns off ~/.ssh/authorized_keys,
+      # so a key missing here is locked out.
       openssh.authorizedKeys.keys = [
+        # ordovician
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILKED9aeWNGLsGBz/n0JLMyY6DeUTdQTsApDuTgdMmoA kovid.l@hyderabad.bits-pilani.ac.in"
+        # cambrian
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDR8nWJYWz5j1fNeWl2VSJUfcxCtdnjDRMGDII97aHde lkovid@gmail.com"
+        # unlabelled; was in cambrian's ~/.ssh/authorized_keys since 2026-11-01
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGHtz+lQIU1Xlr47AGWNUh77CixatxRm5C++V42ah6UK"
       ];
       extraGroups = [
         "wheel"

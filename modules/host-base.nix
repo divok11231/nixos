@@ -34,7 +34,11 @@
     security.rtkit.enable = true;
 
     services.tailscale.enable = true;
-    services.openssh.enable = true;
+    services.openssh = {
+      enable = true;
+      # Only keys from users.users.<name>.openssh.authorizedKeys can log in.
+      authorizedKeysInHomedir = false;
+    };
 
     programs.firefox.enable = true;
 
