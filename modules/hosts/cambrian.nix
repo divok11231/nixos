@@ -30,6 +30,7 @@ in
       nixos.opencode
       nixos.quickshell
       nixos.mango
+      nixos.lan-mouse
 
       # User features
       {
@@ -43,6 +44,7 @@ in
           hm.quickshell
           hm.squeekboard
           hm.mango
+          hm.lan-mouse
           hm.nsight
         ];
       }

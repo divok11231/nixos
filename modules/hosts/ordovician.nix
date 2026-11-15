@@ -30,6 +30,7 @@ in
       nixos.opencode
       nixos.quickshell
       nixos.mango
+      nixos.lan-mouse
       nixos.surface
       nixos.thermals
       nixos.games
@@ -47,6 +48,7 @@ in
           hm.quickshell
           hm.squeekboard
           hm.mango
+          hm.lan-mouse
         ];
 
         # The Surface's 2736x1824 panel needs HiDPI scaling.
